@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import shortid from 'shortid';
+
 class Form extends Component {
   state = {
     contacts: [],
@@ -7,12 +8,13 @@ class Form extends Component {
   };
   nameInputId = shortid.generate();
   handleInputChange = event => {
-    console.log(event.currentTarget.value);
     this.setState({ name: event.currentTarget.value });
   };
+
   handleSubmit = event => {
     event.preventDefault();
-    this.props.onSubmit(this.state);
+
+    this.props.onSubmit(this.state.name);
     this.reset();
   };
 
@@ -22,6 +24,13 @@ class Form extends Component {
       name: '',
     });
   };
+  // addContact = event => {
+  //   // event.preventDefault();
+
+  //   this.setState({
+  //     contacts: [{ id: '1', name: '' }],
+  //   });
+  // };
 
   render() {
     return (
@@ -43,9 +52,6 @@ class Form extends Component {
           </label>
           <button type="submit">Add contact</button>
         </form>
-
-        <h2>Contacts</h2>
-        <ul></ul>
       </>
     );
   }
