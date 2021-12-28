@@ -8,25 +8,23 @@ class Phonebook extends Component {
   state = {
     contacts: [],
     name: '',
+    number: '',
   };
-  addContact = name => {
+  addContact = (name, number) => {
     const newContact = {
       id: shortid.generate(),
       name,
+      number,
     };
 
     this.setState(prevState => ({ contacts: [...prevState.contacts, newContact] }));
   };
-  formSubmitHendler = data => {
-    console.log(data);
-  };
 
   render() {
-    console.log(this.state);
     return (
       <>
-        <Form onSubmit={(this.formSubmitHendler, this.addContact)} />
-        {this.state.contacts.length > 0 && <ContactList contacts={this.state.contacts} />}
+        <Form onSubmit={this.addContact} />
+        <ContactList contacts={this.state.contacts} />
       </>
     );
   }
