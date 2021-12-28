@@ -28,6 +28,11 @@ class Phonebook extends Component {
 
     this.setState(prevState => ({ contacts: [...prevState.contacts, newContact] }));
   };
+  deleteContact = contactId => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(contact => contact.id !== contactId),
+    }));
+  };
   changeFilter = event => {
     this.setState({ filter: event.currentTarget.value });
   };
@@ -39,8 +44,12 @@ class Phonebook extends Component {
     return (
       <>
         <Form onSubmit={this.addContact} />
-        <ContactList contacts={filteredContacts} />
-        <Filter value={this.state.filter} onChange={this.changeFilter} />
+        {this.state.contacts.length > 0 && (
+          <ContactList contacts={filteredContacts} onDeleteContact={this.deleteContact} />
+        )}
+        {this.state.contacts.length > 1 && (
+          <Filter value={this.state.filter} onChange={this.changeFilter} />
+        )}
       </>
     );
   }
