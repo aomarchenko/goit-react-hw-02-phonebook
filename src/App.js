@@ -19,6 +19,13 @@ class Phonebook extends Component {
       number,
     };
 
+    if (
+      this.state.contacts.map(contact => contact.name.toLowerCase()).includes(name.toLowerCase())
+    ) {
+      alert(`${name} is already in contacts`);
+      return;
+    }
+
     this.setState(prevState => ({ contacts: [...prevState.contacts, newContact] }));
   };
   changeFilter = event => {
